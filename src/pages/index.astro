@@ -1,0 +1,17 @@
+---
+import MainLayout from '../layouts/MainLayout.astro'
+import Flash from '../components/Flash.astro'
+import Article from '../components/Article.astro'
+---
+
+<MainLayout title="Custom Bookmark Button">
+  <!-- Buttons -->
+  <div class="flex gap-8 p-6">
+    <Article headline="Alpine Js is getting updates in 2023" />
+    <Article headline="New users keep joining Astro's new production build" />
+    <Article headline="Tailwind CSS got himself a new competitor" />
+  </div>
+  <!-- Flash Message -->
+
+  <Flash />
+</MainLayout>

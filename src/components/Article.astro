@@ -1,0 +1,20 @@
+---
+import Bookmark from './Bookmark.astro'
+
+export interface Props {
+  headline: string
+}
+
+const { headline } = Astro.props as Props
+---
+
+<article class="border-2 rounded-lg p-6 flex flex-col justify-between">
+  <h1 class="font-bold text-2xl mb-2">{headline}</h1>
+  <p>
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem illo
+    facere modi explicabo iure, nostrum unde, ut maxime dignissimos numquam
+    voluptas? Dolorum, aut adipisci? Praesentium quam libero veritatis voluptate
+    sit!
+  </p>
+  <Bookmark />
+</article>
