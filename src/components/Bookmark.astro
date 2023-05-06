@@ -9,7 +9,11 @@
 <script is:inline>
   function Bookmark() {
     return {
-      init() {},
+      init() {
+        if (this.$store.bookmarks.list.includes(this.$el.parentNode.id)) {
+          this.isActive = true
+        }
+      },
       handleClick(element) {
         this.isActive = !this.isActive
         this.updateState(element)

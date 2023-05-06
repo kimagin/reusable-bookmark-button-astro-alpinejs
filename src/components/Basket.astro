@@ -2,18 +2,25 @@
   x-data="Basket"
   @update-bookmarks.window="incommingUpdate"
   @click="showBookmarks = !showBookmarks"
-  class="flex flex-row-reverse gap-4 items-center">
+  class="flex flex-row-reverse gap-4 items-center relative">
   <h3
     class="px-4 bg-black text-white pt-1.5 pb-2 rounded-md"
     x-html="getBookmarks">
   </h3>
   <div
-    class="flex gap-2"
-    x-show="showBookmarks">
+    class="flex flex-col gap-2 absolute top-12"
+    x-show="showBookmarks"
+    x-cloak>
+    <h1
+      x-show="currentBookmarks === 0"
+      class="border-2 border-black bg-white pt-1.5 pb-2 px-4 text-xs rounded-md font-semibold whitespace-nowrap">
+      There is no items in your bookmarkList
+    </h1>
     <template x-for="item in bookmarkList">
       <h1
+        x-show="currentBookmarks !== 0"
         x-text="item"
-        class="border-2 border-black pt-1.5 pb-2 px-4 text-xs rounded-md font-semibold">
+        class="border-2 border-black bg-white pt-1.5 pb-2 px-4 text-xs rounded-md font-semibold">
       </h1>
     </template>
   </div>
@@ -22,7 +29,13 @@
 <script is:inline>
   function Basket() {
     return {
-      init() {},
+      init() {
+        this.currentBookmarks = this.$store.bookmarks.list.length
+        this.bookmarkList = this.$store.bookmarks.list
+        this.$watch('currentBookmarks', () => {
+          this.$store.bookmarks.list = this.bookmarkList
+        })
+      },
       isVisible: false,
       currentBookmarks: 0,
       showBookmarks: true,

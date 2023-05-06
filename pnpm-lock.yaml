@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@alpinejs/persist':
+    specifier: 3.12.0
+    version: 3.12.0
   '@astrojs/alpinejs':
     specifier: ^0.2.1
     version: 0.2.1(@types/alpinejs@3.7.1)(alpinejs@3.12.0)
@@ -25,6 +28,10 @@ packages:
   /@alloc/quick-lru@5.2.0:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
+    dev: false
+
+  /@alpinejs/persist@3.12.0:
+    resolution: {integrity: sha512-d6dQSV73Lc1stDZAQmTqFIL+AfRZgOABxpitbhK6gAkKaWHwNE6O6UAj71Qs7VhF5NkaURdCv47lg4Q+6doupw==}
     dev: false
 
   /@ampproject/remapping@2.2.1:

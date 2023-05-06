@@ -6,8 +6,7 @@ export interface Props {
 }
 
 const { headline } = Astro.props as Props
-const id =
-  headline.split(' ').join('').slice(0, 10) + Math.trunc(Math.random() * 10000)
+const id = headline.split(' ').join('').slice(0, 20)
 console.log(id)
 ---
 
