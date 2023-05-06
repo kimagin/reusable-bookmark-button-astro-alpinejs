@@ -1,9 +1,17 @@
 <div
   x-data="flash"
   x-show="isVisible"
+  x-transition.opacity.duration.500ms
+  @update-bookmarks.window="incommingMessage"
   class="bg-black w-fit text-white py-4 px-6 rounded-lg fixed bottom-6 left-6">
-  <h1 class="font-bold">A new flash message</h1>
-  <p>This is the body of the flash message. the contents will appear here</p>
+  <h1
+    class="font-bold"
+    x-text="messageTitle">
+    A new flash message
+  </h1>
+  <p>
+    <span x-text="state ? 'Added to': 'Removed from'">Added</span> your bookmarks
+  </p>
 </div>
 
 <script is:inline>
@@ -11,6 +19,29 @@
     return {
       init() {},
       isVisible: false,
+      messageTitle: '',
+      delay: 3000,
+      percent: 0,
+      interval: null,
+      timeout: null,
+      state: false,
+      incommingMessage() {
+        this.showFlash()
+        this.state = this.$event.detail.state
+        this.messageTitle =
+          this.$event.detail.info.parentNode.firstChild.nextSibling.textContent
+      },
+      showFlash() {
+        this.isVisible = true
+        if (this.timeout) {
+          clearTimeout(this.timeout)
+          this.timeout = null
+        }
+        this.timeout = setTimeout(() => {
+          this.isVisible = false
+          this.timeout = null
+        }, this.delay)
+      },
     }
   }
 </script>
