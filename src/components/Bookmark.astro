@@ -1,4 +1,35 @@
 <button
-  class="bg-neutral-200 ring ring-neutral-300 px-2 pb-1 pt-0.5 rounded-sm my-4">
+  x-data="Bookmark"
+  x-bind:class="isActive ? 'active' : 'inactive'"
+  @click.prevent="handleClick($el)"
+  class="bookmark px-2 pb-2 pt-1.5 rounded-md my-4">
   Bookmark</button
 >
+
+<script is:inline>
+  function Bookmark() {
+    return {
+      init() {},
+      handleClick(element) {
+        this.isActive = !this.isActive
+        this.updateState(element)
+      },
+      updateState(message) {
+        this.$dispatch('update-bookmarks', {
+          state: this.isActive,
+          info: message,
+        })
+      },
+      isActive: false,
+    }
+  }
+</script>
+
+<style>
+  .active {
+    @apply bg-black text-white;
+  }
+  .inactive {
+    @apply bg-neutral-200 ring ring-neutral-300;
+  }
+</style>

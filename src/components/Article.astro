@@ -6,9 +6,14 @@ export interface Props {
 }
 
 const { headline } = Astro.props as Props
+const id =
+  headline.split(' ').join('').slice(0, 10) + Math.trunc(Math.random() * 10000)
+console.log(id)
 ---
 
-<article class="border-2 rounded-lg p-6 flex flex-col justify-between">
+<article
+  class="border-2 rounded-lg p-6 flex flex-col justify-between"
+  id={id}>
   <h1 class="font-bold text-2xl mb-2">{headline}</h1>
   <p>
     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem illo

@@ -1,0 +1,16 @@
+<div
+  x-data="flash"
+  x-show="isVisible"
+  class="bg-black w-fit text-white py-4 px-6 rounded-lg fixed bottom-6 left-6">
+  <h1 class="font-bold">A new flash message</h1>
+  <p>This is the body of the flash message. the contents will appear here</p>
+</div>
+
+<script is:inline>
+  function flash() {
+    return {
+      init() {},
+      isVisible: false,
+    }
+  }
+</script>
