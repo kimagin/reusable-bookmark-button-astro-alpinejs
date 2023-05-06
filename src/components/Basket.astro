@@ -3,7 +3,7 @@
   @update-bookmarks.window="incommingUpdate"
   @click="isVisible=!isVisible"
   @click.outside="isVisible=false"
-  class="flex flex-row-reverse gap-4 items-center relative">
+  class="flex flex-row-reverse gap-4 items-center relative z-50">
   <h3
     class="px-4 bg-black text-white pt-1.5 pb-2 rounded-md"
     x-html="getBookmarks">
@@ -43,9 +43,6 @@
       bookmarkList: [],
       incommingUpdate() {
         const state = this.$event.detail.state
-        // const target = this.$event.detail.info.parentNode.id
-
-        // I want it to be like this :
         const target = {
           id: this.$event.detail.info.parentNode.id,
           title:

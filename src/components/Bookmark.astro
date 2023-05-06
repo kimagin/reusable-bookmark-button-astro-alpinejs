@@ -1,10 +1,9 @@
 <button
   x-data="Bookmark"
-  x-bind:class="isActive ? 'active' : 'inactive'"
+  x-bind:class="isActive ? ['base','active'] : ['base','inactive']"
   @click.prevent="handleClick($el)"
-  class="bookmark px-2 pb-2 pt-1.5 rounded-md my-4">
-  Bookmark</button
->
+  class="base">
+</button>
 
 <script is:inline>
   function Bookmark() {
@@ -34,10 +33,17 @@
 </script>
 
 <style>
+  .base {
+    @apply bg-no-repeat bg-contain my-4 w-10 h-10 -ml-2 absolute -top-8 right-4 after:absolute after:inset-0 after:bg-white after:-z-10;
+  }
   .active {
-    @apply bg-black text-white;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3l7 3V5c0-1.1-.9-2-2-2z"%2F%3E%3C%2Fsvg%3E');
   }
   .inactive {
-    @apply bg-neutral-200 ring ring-neutral-300;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" fill-opacity="0.2" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3l7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z"%2F%3E%3C%2Fsvg%3E');
+  }
+
+  .inactive:hover {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="24" height="24" viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" fill-opacity="0.2" d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3l7 3V5c0-1.1-.9-2-2-2z"%2F%3E%3C%2Fsvg%3E');
   }
 </style>
