@@ -1,18 +1,34 @@
-<div
-  x-data="flash"
-  x-show="isVisible"
-  x-transition.opacity.duration.500ms
-  @update-bookmarks.window="incommingMessage"
-  x-cloak
-  class="bg-black w-fit text-white py-4 px-6 rounded-lg fixed bottom-6 left-6 z-50">
-  <h1
-    class="font-bold"
-    x-text="messageTitle">
-    A new flash message
-  </h1>
-  <p>
-    <span x-text="state ? 'Added to': 'Removed from'">Added</span> your bookmarks
-  </p>
+<div class="fixed bottom-6 z-50 w-full">
+  <div
+    x-data="flash"
+    x-show="isVisible"
+    x-transition:enter="transition-all"
+    x-transition:enter-start="translate-y-20 opacity-0"
+    x-transition:enter-end="opacity-100 translate-y-1"
+    x-transition:leave="transition-all"
+    x-transition:leave-start="translate-y-0 opacity-100"
+    x-transition:leave-end="translate-y-20 opacity-0"
+    @update-bookmarks.window="incommingMessage"
+    x-cloak
+    class="bg-black mx-auto w-fit text-white py-4 px-6 rounded-lg max-w-xl">
+    <div class="flex gap-2 items-start">
+      <img
+        class="-ml-1 mt-1"
+        width="24"
+        height="24"
+        src="./info.svg"
+        alt=""
+        srcset=""
+      />
+      <div>
+        <h1
+          class="font-bold"
+          x-html="getMessage">
+          A new flash message
+        </h1>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script is:inline>
@@ -42,6 +58,11 @@
           this.isVisible = false
           this.timeout = null
         }, this.delay)
+      },
+      getMessage() {
+        return `${this.messageTitle} <span class="font-normal">${
+          this.state ? 'Added to' : 'Removed from'
+        } your bookmarks!</span>`
       },
     }
   }
