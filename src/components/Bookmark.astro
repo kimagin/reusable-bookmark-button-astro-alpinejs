@@ -10,7 +10,11 @@
   function Bookmark() {
     return {
       init() {
-        if (this.$store.bookmarks.list.includes(this.$el.parentNode.id)) {
+        if (
+          this.$store.bookmarks.list.some(
+            (item) => item.id === this.$el.parentNode.id
+          )
+        ) {
           this.isActive = true
         }
       },

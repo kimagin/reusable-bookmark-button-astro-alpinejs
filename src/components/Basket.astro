@@ -1,26 +1,26 @@
 <button
   x-data="Basket"
   @update-bookmarks.window="incommingUpdate"
-  @click="showBookmarks = !showBookmarks"
+  @click="isVisible=!isVisible"
   class="flex flex-row-reverse gap-4 items-center relative">
   <h3
     class="px-4 bg-black text-white pt-1.5 pb-2 rounded-md"
     x-html="getBookmarks">
   </h3>
   <div
-    class="flex flex-col gap-2 absolute top-12"
-    x-show="showBookmarks"
+    class="flex flex-col gap-2 absolute top-12 bg-black p-4 rounded-md"
+    x-show="isVisible"
     x-cloak>
     <h1
       x-show="currentBookmarks === 0"
-      class="border-2 border-black bg-white pt-1.5 pb-2 px-4 text-xs rounded-md font-semibold whitespace-nowrap">
-      There is no items in your bookmarkList
+      class="text-white pt-1.5 pb-2 px-4 text-xs rounded-md font-semibold whitespace-nowrap">
+      There are no items in your bookmarkList!
     </h1>
     <template x-for="item in bookmarkList">
       <h1
         x-show="currentBookmarks !== 0"
-        x-text="item"
-        class="border-2 border-black bg-white pt-1.5 pb-2 px-4 text-xs rounded-md font-semibold">
+        x-text="item.title"
+        class="border-b border-white bg-black py-4 px-4 text-xs text-white font-semibold whitespace-nowrap last:border-none">
       </h1>
     </template>
   </div>
@@ -42,15 +42,25 @@
       bookmarkList: [],
       incommingUpdate() {
         const state = this.$event.detail.state
-        const target = this.$event.detail.info.parentNode.id
+        // const target = this.$event.detail.info.parentNode.id
+
+        // I want it to be like this :
+        const target = {
+          id: this.$event.detail.info.parentNode.id,
+          title:
+            this.$event.detail.info.parentNode.firstChild.nextSibling
+              .textContent,
+        }
 
         if (state) {
-          if (!this.bookmarkList.includes(target)) {
+          if (!this.bookmarkList.some((item) => item.id === target.id)) {
             this.bookmarkList.push(target)
             this.currentBookmarks += 1
           }
         } else {
-          const index = this.bookmarkList.indexOf(target)
+          const index = this.bookmarkList.findIndex(
+            (item) => item.id === target.id
+          )
           if (index !== -1) {
             this.bookmarkList.splice(index, 1)
             this.currentBookmarks -= 1
@@ -58,7 +68,9 @@
         }
       },
       getBookmarks() {
-        return `<span class="font-bold">${this.currentBookmarks}</span> BookMarks`
+        return `<span class="font-bold">${
+          this.currentBookmarks
+        }</span> BookMarks ${!this.isVisible ? '+' : '-'}`
       },
     }
   }
