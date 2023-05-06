@@ -1,3 +1,18 @@
+<!--  * * Notes * *
+  This is the component file for the Bookmark button. The application has multiple instances of this component, but since we are using "is:inline" for the script, we can confine the JavaScript within each individual instance.
+
+  It is important to note that this button does not access any other libraries on its own. Upon initialization, it will retrieve the list of bookmarked pages from the local storage via the $store. The component will then loop through all instances and determine if the element is in the bookmark array, switching the isActive variable to true or false based on that information.
+
+  To reference each instance, we can utilize Alpine's magic directive "$el," which will target the specific instance.
+
+  Each bookmark instance will dispatch a custom event to the window object, triggering all other elements that are waiting for it. We can create this custom event using Alpine's $dispatch magic directive.
+
+  When dispatching the event, we can pass two things: the name of the event and any additional data that we want the dispatcher to transfer to the window. The syntax looks like this:
+
+  *this.$dispatch('custom-event', { foo: 'bar' })
+
+  To wait for the event to be dispatched, we can use the syntactic sugar of "@custom-event.window."
+-->
 <button
   x-data="Bookmark"
   x-bind:class="isActive ? ['base','active'] : ['base','inactive']"
